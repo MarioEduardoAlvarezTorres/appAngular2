@@ -8,20 +8,23 @@ import { Router } from '@angular/router';
   templateUrl: './buscador.component.html',
 })
 export class BuscadorComponent {
-  heroes:any[] = [];
+  heroes: any[] = [];
+  termino: string | undefined;
 
-  constructor(private activatedRoute:ActivatedRoute, private _heroesService:HeroesService, private router:Router) {}
-  
-  verHeroe(idx:number) {
-    console.log(idx)
-    this.router.navigate(['/heroe',idx])
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private _heroesService: HeroesService,
+    private router: Router
+  ) {}
+
+  verHeroe(idx: number) {
+    this.router.navigate(['/heroe', idx]);
   }
 
   ngOnInit() {
-    this.activatedRoute.params.subscribe(params => {
-      console.log(params['term'])
-      this.heroes = this._heroesService.buscarHeroes(params['term'])
-    }) 
+    this.activatedRoute.params.subscribe((params) => {
+      this.termino = params['term'];
+      this.heroes = this._heroesService.buscarHeroes(params['term']);
+    });
   }
-
 }
